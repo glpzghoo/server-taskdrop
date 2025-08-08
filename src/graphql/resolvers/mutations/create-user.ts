@@ -2,7 +2,6 @@ import { eq } from 'drizzle-orm';
 import { db } from '../../../db/client';
 import { users } from '../../../db/schema';
 import Catch_Error from '../../../utils/GraphqlError';
-import { GraphQLError } from 'graphql';
 import bcrypt from 'bcrypt';
 
 const createUser = async (
@@ -28,7 +27,7 @@ const createUser = async (
       .where(eq(users.email, email));
 
     if (userExistEmail.length > 0) {
-      return new GraphQLError('Хэрэглэгчийн мэйл бүртгэлтэй байна!');
+      return new Error('Хэрэглэгчийн мэйл бүртгэлтэй байна!');
     }
 
     const userExistPhone = await db
@@ -37,7 +36,7 @@ const createUser = async (
       .where(eq(users.phone, phone));
 
     if (userExistPhone.length > 0) {
-      return new GraphQLError('Хэрэглэгчийн утас бүртгэлтэй байна!');
+      return new Error('Хэрэглэгчийн утас бүртгэлтэй байна!');
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
