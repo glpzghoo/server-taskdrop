@@ -1,0 +1,296 @@
+type Users {
+  id: String!
+  email: String!
+  passwordHash: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  profileImageUrl: String
+  bio: String
+  dateOfBirth: String
+  address: String
+  city: String
+  state: String
+  country: String
+  zipCode: String
+  latitude: Float
+  longitude: Float
+  isHelper: Boolean
+  isTaskPoster: Boolean
+  availableNow: Boolean
+  maxTravelDistance: Int
+  preferredCategories: [String]
+  helperRating: Float
+  helperRatingCount: Int
+  posterRating: Float
+  posterRatingCount: Int
+  tasksCompleted: Int
+  tasksPosted: Int
+  totalEarned: Float
+  totalSpent: Float
+  emailVerified: Boolean
+  phoneVerified: Boolean
+  backgroundCheckStatus: BackgroundCheckStatus
+  accountStatus: AccountStatus
+  createdAt: String
+  updatedAt: String
+  lastActiveAt: String
+}
+
+type UserSkills {
+  id: Int!
+  userId: Int!
+  user: Users!
+  skillName: String!
+  categoryId: Int!
+  category: String!
+  proficiencyLevel: ProficiencyLevel!
+  yearsExperience: Int
+  isVerified: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+type UserReports {
+  id: Int!
+  reporterId: Int!
+  reporter: Users!
+  reportedUserId: Int!
+  reportedUser: Users!
+  taskId: Int
+  task: Task
+  reason: ReportReason!
+  description: String
+  evidenceUrls: [String]
+  status: ReportStatus!
+  adminNotes: String
+  createdAt: String
+  resolvedAt: String
+}
+
+type timeSessions {
+  id: Int!
+  taskId: Int!
+  task: Task!
+  helperId: Int!
+  helper: Users!
+  startedAt: String!
+  endedAt: String
+  durationMinutes: Int
+  startLatitude: Float
+  startLongitude: Float
+  endLatitude: Float
+  endLongitude: Float
+  status: TaskStatus
+  createdAt: String
+}
+
+type Task {
+  id: Int!
+  posterId: Int!
+  poster: Users!
+  categoryId: Int!
+  title: String!
+  description: String
+  requirements: String
+  isRemote: Boolean
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  latitude: Float
+  longitude: Float
+  estimatedDuration: Int
+  paymentAmount: Float
+  isUrgent: Boolean
+  urgencyFee: Float
+  status: TaskStatus!
+  assignedTo: Int
+  startedAt: String
+  completedAt: String
+  dueDate: String
+  maxApplications: Int
+  autoAssign: Boolean
+  helperRating: Float
+  posterRating: Float
+  helperFeedback: String
+  posterFeedback: String
+  createdAt: String
+  updatedAt: String
+}
+
+type taskApplications {
+  id: Int!
+  taskId: Int!
+  task: Task!
+  helperId: Int!
+  helper: Users!
+  message: String
+  proposedStartTime: String
+  estimatedCompletionTime: String
+  status: applicationStatusEnum!
+  appliedAt: String
+  respondedAt: String
+}
+
+type systemSettings {
+  id: Int!
+  key: String!
+  value: String!
+  description: String
+  dataType: DataType!
+  createdAt: String
+  updatedAt: String
+}
+
+type payments {
+  id: Int!
+  taskId: Int!
+  task: Task!
+  payerId: Int!
+  payer: Users!
+  payeeId: Int!
+  payee: Users!
+  amount: Float!
+  platformFee: Float
+  urgencyFee: Float
+  netAmount: Float
+  stripePaymentIntentId: String
+  stripeChargeId: String
+  paymentMethod: String
+  status: paymentStatusEnum!
+  processedAt: String
+  createdAt: String
+  updatedAt: String
+}
+
+type notifications {
+  id: Int!
+  userId: Int!
+  user: Users!
+  type: String!
+  title: String!
+  message: String!
+  taskId: Int
+  task: Task
+  relatedUserId: Int
+  relatedUser: Users
+  isRead: Boolean!
+  isPushed: Boolean!
+  isEmailed: Boolean!
+  createdAt: String
+  readAt: String
+}
+
+type messages {
+  id: Int!
+  taskId: Int
+  task: Task
+  senderId: Int!
+  sender: Users!
+  recipientId: Int!
+  recipient: Users!
+  content: String!
+  messageType: messageTypeEnum!
+  attachmentUrl: String
+  isRead: Boolean!
+  readAt: String
+  sentAt: String
+}
+
+type categories {
+  id: Int!
+  name: String!
+  slug: String!
+  description: String
+  icon: String
+  isActive: Boolean!
+  sortOrder: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type availabilitySchedules {
+  id: Int!
+  userId: Int!
+  user: Users!
+  dayOfWeek: Int!
+  startTime: String!
+  endTime: String!
+  isActive: Boolean!
+  createdAt: String
+  updatedAt: String
+}
+
+enum messageTypeEnum {
+  text
+  image
+  file
+  system
+}
+
+enum paymentStatusEnum {
+  pending
+  processing
+  completed
+  failed
+  refunded
+}
+
+enum DataType {
+  string
+  integer
+  decimal
+  boolean
+  json
+}
+
+enum applicationStatusEnum {
+  pending
+  accepted
+  rejected
+  withdrawn
+}
+
+enum TaskStatus {
+  open
+  in_progress
+  completed
+  cancelled
+  archived
+}
+
+enum ReportReason {
+  inappropriate_behavior
+  no_show
+  poor_quality
+  safety_concern
+  fraud
+  other
+}
+
+enum ReportStatus {
+  pending
+  investigating
+  resolved
+  dismissed
+}
+
+enum ProficiencyLevel {
+  beginner
+  intermediate
+  advanced
+  expert
+}
+
+enum BackgroundCheckStatus {
+  pending
+  approved
+  rejected
+}
+
+enum AccountStatus {
+  active
+  suspended
+  banned
+}
