@@ -8,4 +8,5 @@ type Mutation {
   ): Users!
   loginUser(email: String!, password: String!): Users!
   logoutUser: Boolean!
+  UploadPfp(pfp: String!): Boolean!
 }
