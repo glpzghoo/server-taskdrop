@@ -1,19 +1,19 @@
 import { Request } from 'express';
 import { ExtractCookie } from '../../../utils/extract-cookie';
+import Catch_Error from '../../../utils/GraphqlError';
+import { verify } from 'jsonwebtoken';
 import { db } from '../../../db/client';
 import { users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
-import { verify } from 'jsonwebtoken';
-import Catch_Error from '../../../utils/GraphqlError';
 
-export const UploadPfp = async (
+export const UpdateBio = async (
   _: unknown,
-  { pfp }: { pfp: string },
+  { bio }: { bio: string },
   { req }: { req: Request }
 ) => {
   try {
     if (!process.env.JWT_SECRET) {
-      throw new Error('No ENV');
+      throw new Error('No Env: JWT_SECRET');
     }
     const token = ExtractCookie(req, 'AccessToken');
     if (!token) {
@@ -29,10 +29,9 @@ export const UploadPfp = async (
       throw new Error('Хэрэглэгч олдсонгүй!');
     }
 
-    // Update user profile picture
     await db
       .update(users)
-      .set({ profileImageUrl: pfp })
+      .set({ bio })
       .where(eq(users.id, verified.id))
       .execute();
 
