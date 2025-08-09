@@ -1,6 +1,11 @@
 type Query {
   getUsers: [Users]!
   getTasks: [Task]!
-  getUserById(id: ID!): Users
+  getUserById(id: ID!): GetUserByIdResponse
   currentUser: Users
+}
+
+type GetUserByIdResponse {
+  user: Users!
+  taskApplications: [taskApplications!]!
 }
