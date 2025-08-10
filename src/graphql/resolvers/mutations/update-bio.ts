@@ -3,8 +3,8 @@ import { ExtractCookie } from '../../../utils/extract-cookie';
 import Catch_Error from '../../../utils/GraphqlError';
 import { verify } from 'jsonwebtoken';
 import { db } from '../../../db/client';
-import { users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
+import { users } from '../../../db/schema/user';
 
 export const UpdateBio = async (
   _: unknown,

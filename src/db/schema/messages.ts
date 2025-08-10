@@ -1,20 +1,7 @@
-import {
-  pgTable,
-  uuid,
-  text,
-  boolean,
-  timestamp,
-  pgEnum,
-} from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, boolean, timestamp } from 'drizzle-orm/pg-core';
 import { users } from './user';
 import { tasks } from './tasks';
-
-export const messageTypeEnum = pgEnum('message_type', [
-  'text',
-  'image',
-  'file',
-  'system',
-]);
+import { messageTypeEnum } from './enums';
 
 export const messages = pgTable('messages', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -32,6 +19,3 @@ export const messages = pgTable('messages', {
   readAt: timestamp('read_at', { withTimezone: true }),
   sentAt: timestamp('sent_at', { withTimezone: true }).defaultNow(),
 });
-
-export type Message = typeof messages.$inferSelect;
-export type NewMessage = typeof messages.$inferInsert;

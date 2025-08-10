@@ -1,5 +1,5 @@
 import { db } from '../../../db/client';
-import { users as AllUsers } from '../../../db/schema';
+import { users as AllUsers } from '../../../db/schema/user';
 import Catch_Error from '../../../utils/GraphqlError';
 
 const getUsers = async () => {

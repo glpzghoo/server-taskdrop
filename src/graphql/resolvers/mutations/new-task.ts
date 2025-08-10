@@ -2,9 +2,10 @@ import { Request } from 'express';
 import { ExtractCookie } from '../../../utils/extract-cookie';
 import { verify } from 'jsonwebtoken';
 import { db } from '../../../db/client';
-import { tasks, users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 import Catch_Error from '../../../utils/GraphqlError';
+import { users } from '../../../db/schema/user';
+import { tasks } from '../../../db/schema/tasks';
 
 const NewTask = async (
   _: unknown,

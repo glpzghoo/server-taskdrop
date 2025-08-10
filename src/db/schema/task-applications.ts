@@ -1,20 +1,7 @@
-import {
-  pgTable,
-  uuid,
-  text,
-  timestamp,
-  pgEnum,
-  unique,
-} from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, unique } from 'drizzle-orm/pg-core';
 import { tasks } from './tasks';
 import { users } from './user';
-
-export const applicationStatusEnum = pgEnum('application_status', [
-  'pending',
-  'accepted',
-  'rejected',
-  'withdrawn',
-]);
+import { applicationStatusEnum } from './enums';
 
 export const taskApplications = pgTable(
   'task_applications',
@@ -39,6 +26,3 @@ export const taskApplications = pgTable(
     uniqueTaskHelper: unique().on(table.taskId, table.helperId),
   })
 );
-
-export type TaskApplication = typeof taskApplications.$inferSelect;
-export type NewTaskApplication = typeof taskApplications.$inferInsert;

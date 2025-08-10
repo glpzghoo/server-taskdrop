@@ -22,4 +22,5 @@ type Mutation {
     duration: Int!
     estimatedCost: Int!
   ): Task!
+  NewCategory(name: String!): categories!
 }

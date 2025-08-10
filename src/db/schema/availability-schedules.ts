@@ -24,6 +24,3 @@ export const availabilitySchedules = pgTable('availability_schedules', {
     .defaultNow()
     .$onUpdateFn(() => new Date()),
 });
-
-export type AvailabilitySchedule = typeof availabilitySchedules.$inferSelect;
-export type NewAvailabilitySchedule = typeof availabilitySchedules.$inferInsert;

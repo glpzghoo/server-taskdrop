@@ -5,18 +5,11 @@ import {
   integer,
   boolean,
   timestamp,
-  pgEnum,
   unique,
 } from 'drizzle-orm/pg-core';
 import { users } from './user';
 import { categories } from './categories';
-
-export const proficiencyLevelEnum = pgEnum('proficiency_level', [
-  'beginner',
-  'intermediate',
-  'advanced',
-  'expert',
-]);
+import { proficiencyLevelEnum } from './enums';
 
 export const userSkills = pgTable(
   'user_skills',
@@ -44,6 +37,3 @@ export const userSkills = pgTable(
     ),
   })
 );
-
-export type UserSkill = typeof userSkills.$inferSelect;
-export type NewUserSkill = typeof userSkills.$inferInsert;

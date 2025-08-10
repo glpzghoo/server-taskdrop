@@ -90,6 +90,7 @@ type Task {
   posterId: String!
   poster: Users!
   categoryId: String!
+  category: categories!
   title: String!
   description: String
   requirements: String
