@@ -38,11 +38,11 @@ type Users {
 }
 
 type UserSkills {
-  id: Int!
-  userId: Int!
+  id: String!
+  userId: String!
   user: Users!
   skillName: String!
-  categoryId: Int!
+  categoryId: String!
   category: String!
   proficiencyLevel: ProficiencyLevel!
   yearsExperience: Int
@@ -52,12 +52,12 @@ type UserSkills {
 }
 
 type UserReports {
-  id: Int!
-  reporterId: Int!
+  id: String!
+  reporterId: String!
   reporter: Users!
-  reportedUserId: Int!
+  reporteduserId: String!
   reportedUser: Users!
-  taskId: Int
+  taskId: String
   task: Task
   reason: ReportReason!
   description: String
@@ -69,10 +69,10 @@ type UserReports {
 }
 
 type timeSessions {
-  id: Int!
-  taskId: Int!
+  id: String!
+  taskId: String!
   task: Task!
-  helperId: Int!
+  helperId: String!
   helper: Users!
   startedAt: String!
   endedAt: String
@@ -86,10 +86,10 @@ type timeSessions {
 }
 
 type Task {
-  id: Int!
-  posterId: Int!
+  id: String!
+  posterId: String!
   poster: Users!
-  categoryId: Int!
+  categoryId: String!
   title: String!
   description: String
   requirements: String
@@ -104,7 +104,7 @@ type Task {
   paymentAmount: Float
   isUrgent: Boolean
   urgencyFee: Float
-  status: TaskStatus!
+  status: TaskStatus
   assignedTo: Int
   startedAt: String
   completedAt: String
@@ -120,10 +120,10 @@ type Task {
 }
 
 type taskApplications {
-  id: Int!
-  taskId: Int!
+  id: String!
+  taskId: String!
   task: Task!
-  helperId: Int!
+  helperId: String!
   helper: Users!
   message: String
   proposedStartTime: String
@@ -134,7 +134,7 @@ type taskApplications {
 }
 
 type systemSettings {
-  id: Int!
+  id: String!
   key: String!
   value: String!
   description: String
@@ -144,12 +144,12 @@ type systemSettings {
 }
 
 type payments {
-  id: Int!
-  taskId: Int!
+  id: String!
+  taskId: String!
   task: Task!
-  payerId: Int!
+  payerId: String!
   payer: Users!
-  payeeId: Int!
+  payeeId: String!
   payee: Users!
   amount: Float!
   platformFee: Float
@@ -165,15 +165,15 @@ type payments {
 }
 
 type notifications {
-  id: Int!
-  userId: Int!
+  id: String!
+  userId: String!
   user: Users!
   type: String!
   title: String!
   message: String!
-  taskId: Int
+  taskId: String
   task: Task
-  relatedUserId: Int
+  relateduserId: String
   relatedUser: Users
   isRead: Boolean!
   isPushed: Boolean!
@@ -183,12 +183,12 @@ type notifications {
 }
 
 type messages {
-  id: Int!
-  taskId: Int
+  id: String!
+  taskId: String
   task: Task
-  senderId: Int!
+  senderId: String!
   sender: Users!
-  recipientId: Int!
+  recipientId: String!
   recipient: Users!
   content: String!
   messageType: messageTypeEnum!
@@ -199,7 +199,7 @@ type messages {
 }
 
 type categories {
-  id: Int!
+  id: String!
   name: String!
   slug: String!
   description: String
@@ -211,8 +211,8 @@ type categories {
 }
 
 type availabilitySchedules {
-  id: Int!
-  userId: Int!
+  id: String!
+  userId: String!
   user: Users!
   dayOfWeek: Int!
   startTime: String!

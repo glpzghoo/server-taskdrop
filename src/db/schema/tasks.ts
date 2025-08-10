@@ -40,10 +40,7 @@ export const tasks = pgTable('tasks', {
   latitude: decimal('latitude', { precision: 10, scale: 8 }),
   longitude: decimal('longitude', { precision: 11, scale: 8 }),
   estimatedDuration: integer('estimated_duration').notNull(),
-  paymentAmount: decimal('payment_amount', {
-    precision: 8,
-    scale: 2,
-  }).notNull(),
+  paymentAmount: integer('payment_amount').notNull(),
   isUrgent: boolean('is_urgent').default(false),
   urgencyFee: decimal('urgency_fee', { precision: 6, scale: 2 }).default(
     '0.00'
