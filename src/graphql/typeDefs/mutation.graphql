@@ -10,4 +10,16 @@ type Mutation {
   logoutUser: Boolean!
   UploadPfp(pfp: String!): Boolean!
   UpdateBio(bio: String!): Boolean!
+  NewTask(
+    title: String!
+    description: String!
+    type: String!
+    location: String!
+    isRemote: Boolean!
+    isUrgent: Boolean!
+    duration: String!
+    requirements: String
+    duration: Int!
+    estimatedCost: Int!
+  ): Task!
 }

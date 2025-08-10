@@ -3,6 +3,7 @@ type Query {
   getTasks: [Task]!
   getUserById(id: ID!): GetUserByIdResponse
   currentUser: Users
+  getCategories: [categories!]!
 }
 
 type GetUserByIdResponse {
