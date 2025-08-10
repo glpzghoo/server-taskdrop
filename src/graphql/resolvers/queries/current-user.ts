@@ -3,9 +3,9 @@ import { Request } from 'express';
 import Catch_Error from '../../../utils/GraphqlError';
 import { verify } from 'jsonwebtoken';
 import { db } from '../../../db/client';
-import { users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 import { parse } from 'cookie';
+import { users } from '../../../db/schema/user';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 

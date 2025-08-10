@@ -1,10 +1,10 @@
 import { Request } from 'express';
 import { ExtractCookie } from '../../../utils/extract-cookie';
 import { db } from '../../../db/client';
-import { users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 import { verify } from 'jsonwebtoken';
 import Catch_Error from '../../../utils/GraphqlError';
+import { users } from '../../../db/schema/user';
 
 export const UploadPfp = async (
   _: unknown,

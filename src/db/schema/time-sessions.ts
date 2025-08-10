@@ -4,17 +4,10 @@ import {
   timestamp,
   integer,
   decimal,
-  pgEnum,
 } from 'drizzle-orm/pg-core';
 import { tasks } from './tasks';
 import { users } from './user';
-
-export const sessionStatusEnum = pgEnum('session_status', [
-  'active',
-  'paused',
-  'completed',
-]);
-
+import { sessionStatusEnum } from './enums';
 export const timeSessions = pgTable('time_sessions', {
   id: uuid('id').primaryKey().defaultRandom(),
   taskId: uuid('task_id')
@@ -34,6 +27,3 @@ export const timeSessions = pgTable('time_sessions', {
 
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
-
-export type TimeSession = typeof timeSessions.$inferSelect;
-export type NewTimeSession = typeof timeSessions.$inferInsert;

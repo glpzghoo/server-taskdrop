@@ -7,19 +7,10 @@ import {
   decimal,
   integer,
   timestamp,
-  pgEnum,
 } from 'drizzle-orm/pg-core';
 import { users } from './user';
 import { categories } from './categories';
-
-export const taskStatusEnum = pgEnum('task_status', [
-  'open',
-  'assigned',
-  'in_progress',
-  'completed',
-  'cancelled',
-  'disputed',
-]);
+import { taskStatusEnum } from './enums';
 
 export const tasks = pgTable('tasks', {
   id: uuid('id').primaryKey().defaultRandom(),

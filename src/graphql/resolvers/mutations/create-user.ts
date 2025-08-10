@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../../../db/client';
-import { users } from '../../../db/schema';
 import Catch_Error from '../../../utils/GraphqlError';
 import bcrypt from 'bcrypt';
+import { users } from '../../../db/schema/user';
 
 const createUser = async (
   _: unknown,

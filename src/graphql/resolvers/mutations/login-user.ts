@@ -1,10 +1,10 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../../../db/client';
-import { users } from '../../../db/schema';
 import Catch_Error from '../../../utils/GraphqlError';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
+import { users } from '../../../db/schema/user';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 

@@ -4,18 +4,10 @@ import {
   decimal,
   varchar,
   timestamp,
-  pgEnum,
 } from 'drizzle-orm/pg-core';
 import { tasks } from './tasks';
 import { users } from './user';
-
-export const paymentStatusEnum = pgEnum('payment_status', [
-  'pending',
-  'processing',
-  'completed',
-  'failed',
-  'refunded',
-]);
+import { paymentStatusEnum } from './enums';
 
 export const payments = pgTable('payments', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -42,6 +34,3 @@ export const payments = pgTable('payments', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
-
-export type Payment = typeof payments.$inferSelect;
-export type NewPayment = typeof payments.$inferInsert;

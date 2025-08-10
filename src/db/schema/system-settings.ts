@@ -1,19 +1,5 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
-  pgEnum,
-} from 'drizzle-orm/pg-core';
-
-export const dataTypeEnum = pgEnum('data_type', [
-  'string',
-  'integer',
-  'decimal',
-  'boolean',
-  'json',
-]);
+import { pgTable, uuid, varchar, text, timestamp } from 'drizzle-orm/pg-core';
+import { dataTypeEnum } from './enums';
 
 export const systemSettings = pgTable('system_settings', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -24,6 +10,3 @@ export const systemSettings = pgTable('system_settings', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
-
-export type SystemSetting = typeof systemSettings.$inferSelect;
-export type NewSystemSetting = typeof systemSettings.$inferInsert;

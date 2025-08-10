@@ -1,7 +1,8 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../../../db/client';
-import { taskApplications, users } from '../../../db/schema';
 import Catch_Error from '../../../utils/GraphqlError';
+import { users } from '../../../db/schema/user';
+import { taskApplications } from '../../../db/schema/task-applications';
 
 const getUserById = async (_: unknown, { id }: { id: string }) => {
   try {

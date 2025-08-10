@@ -8,19 +8,8 @@ import {
   integer,
   boolean,
   timestamp,
-  pgEnum,
 } from 'drizzle-orm/pg-core';
-
-export const accountStatusEnum = pgEnum('account_status', [
-  'active',
-  'suspended',
-  'banned',
-]);
-export const backgroundCheckStatusEnum = pgEnum('background_check_status', [
-  'pending',
-  'approved',
-  'rejected',
-]);
+import { accountStatusEnum, backgroundCheckStatusEnum } from './enums';
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -72,6 +61,3 @@ export const users = pgTable('users', {
     withTimezone: true,
   }).defaultNow(),
 });
-
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
