@@ -1,4 +1,3 @@
-// export all schemas and types
 export * from './user';
 export * from './categories';
 export * from './tasks';

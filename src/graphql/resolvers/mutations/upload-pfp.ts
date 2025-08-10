@@ -29,7 +29,6 @@ export const UploadPfp = async (
       throw new Error('Хэрэглэгч олдсонгүй!');
     }
 
-    // Update user profile picture
     await db
       .update(users)
       .set({ profileImageUrl: pfp })

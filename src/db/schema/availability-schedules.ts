@@ -14,7 +14,7 @@ export const availabilitySchedules = pgTable('availability_schedules', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
 
-  dayOfWeek: integer('day_of_week').notNull(), // 0 = nym, 6 = hagassain
+  dayOfWeek: integer('day_of_week').notNull(),
   startTime: time('start_time').notNull(),
   endTime: time('end_time').notNull(),
 

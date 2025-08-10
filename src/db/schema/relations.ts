@@ -11,7 +11,6 @@ import { userSkills } from './user-skills';
 import { notifications } from './notifications';
 import { userReports } from './user-reports';
 
-// user relations
 export const usersRelations = relations(users, ({ many }) => ({
   postedTasks: many(tasks, { relationName: 'poster' }),
   assignedTasks: many(tasks, { relationName: 'assignee' }),
@@ -28,13 +27,11 @@ export const usersRelations = relations(users, ({ many }) => ({
   reportsReceived: many(userReports, { relationName: 'reported' }),
 }));
 
-// category relations
 export const categoriesRelations = relations(categories, ({ many }) => ({
   tasks: many(tasks),
   userSkills: many(userSkills),
 }));
 
-// task relations
 export const tasksRelations = relations(tasks, ({ one, many }) => ({
   poster: one(users, {
     fields: [tasks.posterId],
@@ -58,7 +55,6 @@ export const tasksRelations = relations(tasks, ({ one, many }) => ({
   reports: many(userReports),
 }));
 
-// task Application relations
 export const taskApplicationsRelations = relations(
   taskApplications,
   ({ one }) => ({
@@ -73,7 +69,6 @@ export const taskApplicationsRelations = relations(
   })
 );
 
-// time Session relations
 export const timeSessionsRelations = relations(timeSessions, ({ one }) => ({
   task: one(tasks, {
     fields: [timeSessions.taskId],
@@ -85,7 +80,6 @@ export const timeSessionsRelations = relations(timeSessions, ({ one }) => ({
   }),
 }));
 
-// payment relations
 export const paymentsRelations = relations(payments, ({ one }) => ({
   task: one(tasks, {
     fields: [payments.taskId],
@@ -103,7 +97,6 @@ export const paymentsRelations = relations(payments, ({ one }) => ({
   }),
 }));
 
-// message relations
 export const messagesRelations = relations(messages, ({ one }) => ({
   task: one(tasks, {
     fields: [messages.taskId],
@@ -121,7 +114,6 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   }),
 }));
 
-// availability Schedule relations
 export const availabilitySchedulesRelations = relations(
   availabilitySchedules,
   ({ one }) => ({
@@ -132,7 +124,6 @@ export const availabilitySchedulesRelations = relations(
   })
 );
 
-// user Skill relations
 export const userSkillsRelations = relations(userSkills, ({ one }) => ({
   user: one(users, {
     fields: [userSkills.userId],
@@ -144,7 +135,6 @@ export const userSkillsRelations = relations(userSkills, ({ one }) => ({
   }),
 }));
 
-// notification relations
 export const notificationsRelations = relations(notifications, ({ one }) => ({
   user: one(users, {
     fields: [notifications.userId],
@@ -160,7 +150,6 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
   }),
 }));
 
-// user Report relations
 export const userReportsRelations = relations(userReports, ({ one }) => ({
   reporter: one(users, {
     fields: [userReports.reporterId],
