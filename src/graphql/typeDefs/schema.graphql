@@ -20,6 +20,7 @@ type Users {
   availableNow: Boolean
   maxTravelDistance: Int
   preferredCategories: [String]
+  postedTasks: [Task]!
   helperRating: Float
   helperRatingCount: Int
   posterRating: Float
@@ -32,8 +33,8 @@ type Users {
   phoneVerified: Boolean
   backgroundCheckStatus: BackgroundCheckStatus
   accountStatus: AccountStatus
-  createdAt: String
-  updatedAt: String
+  createdAt: String!
+  updatedAt: String!
   lastActiveAt: String
 }
 
@@ -116,8 +117,8 @@ type Task {
   posterRating: Float
   helperFeedback: String
   posterFeedback: String
-  createdAt: String
-  updatedAt: String
+  createdAt: String!
+  updatedAt: String!
 }
 
 type taskApplications {

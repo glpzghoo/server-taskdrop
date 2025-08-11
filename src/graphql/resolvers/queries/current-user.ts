@@ -18,6 +18,15 @@ const currentUser = async (_: unknown, {}, { req }: { req: Request }) => {
     const verified = verify(jwt!, JWT_SECRET) as { id: string; email: string };
 
     const user = await db.select().from(users).where(eq(users.id, verified.id));
+    if (user.length === 0) {
+      throw new Error('Хэрэглэгч олдсонгүй!');
+    }
+
+    void db
+      .update(users)
+      .set({ lastActiveAt: new Date() })
+      .where(eq(users.id, verified.id))
+      .catch((e) => console.error('updated', e));
 
     return user[0] || null;
   } catch (err) {

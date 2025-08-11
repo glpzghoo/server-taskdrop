@@ -90,6 +90,17 @@ const NewTask = async (
 
     const task = newTask[0];
 
+    const AllTasks = await db
+      .select()
+      .from(tasks)
+      .where(eq(tasks.posterId, user.id));
+    const taskCount = AllTasks.length;
+
+    await db
+      .update(users)
+      .set({ tasksPosted: taskCount })
+      .where(eq(users.id, user.id));
+
     return task;
   } catch (err) {
     console.error(err);
