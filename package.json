@@ -8,7 +8,7 @@
     "build": "tsc && ts-node scripts/copy-graphql.ts",
     "lint": "eslint . --ext .ts,.js",
     "format": "prettier --write 'src/**/*.{ts,js,json,graphql}'",
-    "start": "yarn pm2 start src/index.ts"
+    "start": "yarn build && node dist/src/index.js"
   },
   "author": "",
   "license": "ISC",
