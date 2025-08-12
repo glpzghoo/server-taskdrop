@@ -7,7 +7,8 @@
     "nodemon": "nodemon --watch 'src' --ext ts,graphql --exec ts-node src/index.ts",
     "build": "tsc && ts-node scripts/copy-graphql.ts",
     "lint": "eslint . --ext .ts,.js",
-    "format": "prettier --write 'src/**/*.{ts,js,json,graphql}'"
+    "format": "prettier --write 'src/**/*.{ts,js,json,graphql}'",
+    "start": "yarn pm2 start src/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +34,7 @@
     "graphql-tag": "^2.12.6",
     "husky": "^9.1.7",
     "jsonwebtoken": "^9.0.2",
+    "pm2": "^6.0.8",
     "postgres": "^3.4.7",
     "prettier": "^3.6.2",
     "typescript-eslint": "^8.39.0"
