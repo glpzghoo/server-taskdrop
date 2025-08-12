@@ -14,7 +14,7 @@ export const initGraphQL = async () => {
       Query: queries,
       Mutation: mutations,
     },
-    introspection: process.env.NODE_ENV !== 'production',
+    introspection: process.env.PRODUCTION !== 'production',
   });
 
   await server.start();
