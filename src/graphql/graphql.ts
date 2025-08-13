@@ -14,14 +14,16 @@ export const initGraphQL = async () => {
       Query: queries,
       Mutation: mutations,
     },
-    introspection: process.env.PRODUCTION !== 'production',
+    introspection: true,
   });
 
   await server.start();
 
   graphql.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: process.env.PRODUCTION
+        ? 'https://task-drop-latest.vercel.app'
+        : 'http://localhost:3000',
       credentials: true,
     }),
     express.json(),
