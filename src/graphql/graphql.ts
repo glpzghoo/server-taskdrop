@@ -22,7 +22,7 @@ export const initGraphQL = async () => {
   graphql.use(
     cors({
       origin: process.env.PRODUCTION
-        ? 'https://task-drop-latest.vercel.app'
+        ? 'https://task-drop.glpzghoo.space'
         : 'http://localhost:3000',
       credentials: true,
     }),
