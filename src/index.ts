@@ -10,7 +10,7 @@ const startServer = async () => {
   app.use('/graphql', graphql);
 
   app.use('/', (_req, res) => {
-    res.status(404).send('oops');
+    res.send('oops');
   });
 
   app.listen(4000, () => {

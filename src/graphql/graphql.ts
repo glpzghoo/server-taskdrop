@@ -35,7 +35,7 @@ export const initGraphQL = async () => {
   );
 
   graphql.use((_req, res) => {
-    res.status(404).send('oops');
+    res.status(200).send('oops');
   });
 
   return graphql;
