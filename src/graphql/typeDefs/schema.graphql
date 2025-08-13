@@ -20,12 +20,13 @@ type Users {
   availableNow: Boolean
   maxTravelDistance: Int
   preferredCategories: [String]
-  postedTasks: [Task]!
+  postedTasks: [Task]
   helperRating: Float
   helperRatingCount: Int
   posterRating: Float
   posterRatingCount: Int
   tasksCompleted: Int
+  taskApplications: [taskApplications]
   tasksPosted: Int
   totalEarned: Float
   totalSpent: Float
