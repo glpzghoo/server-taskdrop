@@ -21,9 +21,10 @@ export const initGraphQL = async () => {
 
   graphql.use(
     cors({
-      origin: process.env.PRODUCTION
-        ? 'https://task-drop.glpzghoo.space'
-        : 'http://localhost:3000',
+      origin:
+        process.env.PRODUCTION === 'production'
+          ? 'https://task-drop.glpzghoo.space'
+          : 'http://localhost:3000',
       credentials: true,
     }),
     express.json(),
