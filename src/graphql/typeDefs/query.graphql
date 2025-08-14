@@ -4,4 +4,5 @@ type Query {
   getUserById(id: ID!): Users!
   currentUser: Users
   getCategories: [categories!]!
+  getTaskById(id: String!): Task!
 }

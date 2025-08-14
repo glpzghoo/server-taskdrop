@@ -94,18 +94,18 @@ type Task {
   categoryId: String!
   category: categories!
   title: String!
-  description: String
+  description: String!
   requirements: String
-  isRemote: Boolean
+  isRemote: Boolean!
   address: String
   city: String
   state: String
   zipCode: String
   latitude: Float
   longitude: Float
-  estimatedDuration: Int
-  paymentAmount: Float
-  isUrgent: Boolean
+  estimatedDuration: Int!
+  paymentAmount: Float!
+  isUrgent: Boolean!
   urgencyFee: Float
   status: TaskStatus
   assignedTo: Int
@@ -113,6 +113,7 @@ type Task {
   completedAt: String
   dueDate: String
   maxApplications: Int
+  applications: [taskApplications!]!
   autoAssign: Boolean
   helperRating: Float
   posterRating: Float
@@ -128,11 +129,11 @@ type taskApplications {
   task: Task!
   helperId: String!
   helper: Users!
-  message: String
-  proposedStartTime: String
-  estimatedCompletionTime: String
+  message: String!
+  proposedStartTime: String!
+  estimatedCompletionTime: String!
   status: applicationStatusEnum!
-  appliedAt: String
+  appliedAt: String!
   respondedAt: String
 }
 
