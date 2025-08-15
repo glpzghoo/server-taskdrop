@@ -1,0 +1,8 @@
+type Query {
+  getUsers: [Users]!
+  getTasks: [Task]!
+  getUserById(id: ID!): Users!
+  currentUser: Users
+  getCategories: [categories!]!
+  getTaskById(id: String!): Task!
+}

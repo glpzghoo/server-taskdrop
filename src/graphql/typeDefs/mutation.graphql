@@ -1,0 +1,32 @@
+type Mutation {
+  createUser(
+    email: String!
+    phone: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+  ): Users!
+  loginUser(email: String!, password: String!): Users!
+  logoutUser: Boolean!
+  UploadPfp(pfp: String!): Boolean!
+  UpdateBio(bio: String!): Boolean!
+  NewTask(
+    title: String!
+    description: String!
+    type: String!
+    location: String!
+    isRemote: Boolean!
+    isUrgent: Boolean!
+    duration: String!
+    requirements: String
+    duration: Int!
+    estimatedCost: Int!
+    urgencyFee: Int
+  ): Task!
+  NewCategory(name: String!): categories!
+  newTaskApplication(
+    taskId: String!
+    message: String!
+    proposedStartTime: String!
+  ): taskApplications!
+}
