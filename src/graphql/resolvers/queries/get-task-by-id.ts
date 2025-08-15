@@ -10,7 +10,11 @@ export const getTaskById = (_: unknown, { id }: { id: string }) => {
       with: {
         poster: true,
         category: true,
-        applications: true,
+        applications: {
+          with: {
+            helper: true,
+          },
+        },
       },
     });
     if (!task) {

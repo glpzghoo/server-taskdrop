@@ -5,3 +5,4 @@ export * from './upload-pfp';
 export * from './update-bio';
 export * from './new-task';
 export * from './new-category';
+export * from './new-task-application';

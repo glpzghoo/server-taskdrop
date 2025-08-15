@@ -19,6 +19,7 @@ const NewTask = async (
     isRemote,
     isUrgent,
     requirements,
+    urgencyFee,
   }: {
     title: string;
     description: string;
@@ -29,6 +30,7 @@ const NewTask = async (
     isRemote: boolean;
     isUrgent: boolean;
     requirements: string;
+    urgencyFee: number;
   },
   { req }: { req: Request }
 ) => {
@@ -82,6 +84,9 @@ const NewTask = async (
         isUrgent,
         ...(requirements !== undefined ? { requirements } : {}),
         status: 'open',
+        ...(isUrgent && urgencyFee !== undefined
+          ? { urgencyFee: urgencyFee }
+          : {}),
       })
       .returning();
     if (newTask.length === 0) {

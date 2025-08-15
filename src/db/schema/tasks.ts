@@ -33,9 +33,7 @@ export const tasks = pgTable('tasks', {
   estimatedDuration: integer('estimated_duration').notNull(),
   paymentAmount: integer('payment_amount').notNull(),
   isUrgent: boolean('is_urgent').default(false),
-  urgencyFee: decimal('urgency_fee', { precision: 6, scale: 2 }).default(
-    '0.00'
-  ),
+  urgencyFee: integer('urgency_fee').default(0),
   status: taskStatusEnum('status').default('open'),
   assignedTo: uuid('assigned_to').references(() => users.id),
   startedAt: timestamp('started_at', { withTimezone: true }),

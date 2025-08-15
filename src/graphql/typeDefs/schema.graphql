@@ -131,7 +131,7 @@ type taskApplications {
   helper: Users!
   message: String!
   proposedStartTime: String!
-  estimatedCompletionTime: String!
+  estimatedCompletionTime: String
   status: applicationStatusEnum!
   appliedAt: String!
   respondedAt: String

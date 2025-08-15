@@ -21,6 +21,12 @@ type Mutation {
     requirements: String
     duration: Int!
     estimatedCost: Int!
+    urgencyFee: Int
   ): Task!
   NewCategory(name: String!): categories!
+  newTaskApplication(
+    taskId: String!
+    message: String!
+    proposedStartTime: String!
+  ): taskApplications!
 }
