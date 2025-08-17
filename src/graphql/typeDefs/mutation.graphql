@@ -14,7 +14,7 @@ type Mutation {
     title: String!
     description: String!
     type: String!
-    location: String!
+    location: String
     isRemote: Boolean!
     isUrgent: Boolean!
     duration: String!
