@@ -13,6 +13,13 @@ const getUserById = async (_: unknown, { id }: { id: string }) => {
         },
         taskApplications: {
           orderBy: desc(taskApplications.appliedAt),
+          with: {
+            task: {
+              with: {
+                poster: true,
+              },
+            },
+          },
         },
       },
     });

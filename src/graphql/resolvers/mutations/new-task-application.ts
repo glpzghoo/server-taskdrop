@@ -10,10 +10,7 @@ import { ExtractCookie } from '../../../utils/extract-cookie';
 const InputSchema = z.object({
   taskId: z.string().min(1, 'Даалгаврын ID дутуу байна'),
   message: z.string().min(1, 'Зурвас шаардлагатай').max(2000, 'Хэт урт зурвас'),
-  proposedStartTime: z.string().datetime({
-    offset: true,
-    message: 'Цагийн формат ISO 8601 байх ёстой (ж: 2025-08-15T10:00:00+08:00)',
-  }),
+  proposedStartTime: z.string(),
 });
 
 type Args = z.infer<typeof InputSchema>;
