@@ -108,7 +108,7 @@ type Task {
   isUrgent: Boolean!
   urgencyFee: Float
   status: TaskStatus
-  assignedTo: Int
+  assignedTo: String
   startedAt: String
   completedAt: String
   dueDate: String

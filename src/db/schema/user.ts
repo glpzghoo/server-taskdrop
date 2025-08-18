@@ -30,22 +30,18 @@ export const users = pgTable('users', {
   availableNow: boolean('available_now').default(false),
   maxTravelDistance: integer('max_travel_distance').default(10),
   preferredCategories: text('preferred_categories').array(),
-  helperRating: decimal('helper_rating', { precision: 3, scale: 2 }).default(
-    '0.00'
-  ),
-  helperRatingCount: integer('helper_rating_count').default(0),
-  posterRating: decimal('poster_rating', { precision: 3, scale: 2 }).default(
-    '0.00'
-  ),
-  posterRatingCount: integer('poster_rating_count').default(0),
-  tasksCompleted: integer('tasks_completed').default(0),
-  tasksPosted: integer('tasks_posted').default(0),
-  totalEarned: decimal('total_earned', { precision: 10, scale: 2 }).default(
-    '0.00'
-  ),
-  totalSpent: decimal('total_spent', { precision: 10, scale: 2 }).default(
-    '0.00'
-  ),
+  helperRating: decimal('helper_rating', { precision: 3, scale: 2 })
+    .default('0.00')
+    .notNull(),
+  helperRatingCount: integer('helper_rating_count').default(0).notNull(),
+  posterRating: decimal('poster_rating', { precision: 3, scale: 2 })
+    .default('0.00')
+    .notNull(),
+  posterRatingCount: integer('poster_rating_count').default(0).notNull(),
+  tasksCompleted: integer('tasks_completed').default(0).notNull(),
+  tasksPosted: integer('tasks_posted').default(0).notNull(),
+  totalEarned: integer('total_earned').default(0).notNull(),
+  totalSpent: integer('total_spent').default(0).notNull(),
   emailVerified: boolean('email_verified').default(false),
   phoneVerified: boolean('phone_verified').default(false),
   backgroundCheckStatus: backgroundCheckStatusEnum(
