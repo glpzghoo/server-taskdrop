@@ -87,6 +87,7 @@ const NewTask = async (
         ...(isUrgent && urgencyFee !== undefined
           ? { urgencyFee: urgencyFee }
           : {}),
+        posterRating: user.posterRating?.toString(),
       })
       .returning();
     if (newTask.length === 0) {

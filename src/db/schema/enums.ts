@@ -39,6 +39,7 @@ export const applicationStatusEnum = pgEnum('application_status', [
   'accepted',
   'rejected',
   'withdrawn',
+  'overdue',
 ]);
 
 export const taskStatusEnum = pgEnum('task_status', [
@@ -48,6 +49,7 @@ export const taskStatusEnum = pgEnum('task_status', [
   'completed',
   'cancelled',
   'disputed',
+  'overdue',
 ]);
 
 export const sessionStatusEnum = pgEnum('session_status', [
