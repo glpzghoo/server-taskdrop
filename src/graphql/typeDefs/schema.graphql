@@ -107,7 +107,7 @@ type Task {
   paymentAmount: Float!
   isUrgent: Boolean!
   urgencyFee: Float
-  status: TaskStatus
+  status: TaskStatus!
   assignedTo: String
   startedAt: String
   completedAt: String
@@ -261,7 +261,9 @@ enum TaskStatus {
   in_progress
   completed
   cancelled
-  archived
+  disputed
+  assigned
+  overdue
 }
 
 enum ReportReason {
