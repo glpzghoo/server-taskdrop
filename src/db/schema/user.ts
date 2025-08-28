@@ -25,9 +25,9 @@ export const users = pgTable('users', {
   city: varchar('city', { length: 100 }),
   latitude: decimal('latitude', { precision: 10, scale: 8 }),
   longitude: decimal('longitude', { precision: 11, scale: 8 }),
-  isHelper: boolean('is_helper').default(false),
-  isTaskPoster: boolean('is_task_poster').default(false),
-  availableNow: boolean('available_now').default(false),
+  isHelper: boolean('is_helper').default(false).notNull(),
+  isTaskPoster: boolean('is_task_poster').default(false).notNull(),
+  availableNow: boolean('available_now').default(false).notNull(),
   maxTravelDistance: integer('max_travel_distance').default(10),
   preferredCategories: text('preferred_categories').array(),
   helperRating: decimal('helper_rating', { precision: 3, scale: 2 })
@@ -53,4 +53,5 @@ export const users = pgTable('users', {
   lastActiveAt: timestamp('last_active_at', {
     withTimezone: true,
   }).defaultNow(),
+  responseTime: varchar('reponse_seconds').default('0'),
 });

@@ -89,16 +89,22 @@ const UpdateTaskStatusBothSides = async (
           );
         }
 
+        const now = new Date();
+        const diffMs = now.getTime() - application.appliedAt.getTime();
+        const respondSeconds = Math.floor(diffMs / 1000);
+
+        await tx.update(users).set({ responseTime: respondSeconds.toString() });
+
         await tx
           .update(taskApplications)
-          .set({ status: 'accepted', respondedAt: new Date() })
+          .set({ status: 'accepted', respondedAt: now })
           .where(eq(taskApplications.id, TaskApplicationId));
         await tx
           .update(tasks)
           .set({
             status: 'assigned',
             assignedTo: application.helperId,
-            startedAt: new Date(),
+            startedAt: now,
             helperRating: helper.helperRating?.toString(),
             posterRating: poster.posterRating?.toString(),
           })

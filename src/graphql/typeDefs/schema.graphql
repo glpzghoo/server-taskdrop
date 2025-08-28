@@ -17,7 +17,7 @@ type Users {
   longitude: Float
   isHelper: Boolean
   isTaskPoster: Boolean
-  availableNow: Boolean
+  availableNow: Boolean!
   maxTravelDistance: Int
   preferredCategories: [String]
   postedTasks: [Task]
@@ -37,6 +37,7 @@ type Users {
   createdAt: String!
   updatedAt: String!
   lastActiveAt: String
+  responseTime: String
 }
 
 type UserSkills {
@@ -299,4 +300,16 @@ enum AccountStatus {
   active
   suspended
   banned
+}
+
+type DashboardResponse {
+  taskCompleted: Int!
+  totalEarned: Int!
+  avgRating: Int!
+  responseTime: Int!
+  assignedTasks: [Task]!
+  isAvailable: Boolean!
+  fullname: String!
+  isHelper: Boolean!
+  isPoster: Boolean!
 }

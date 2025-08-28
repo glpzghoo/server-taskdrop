@@ -6,4 +6,5 @@ type Query {
   getTaskById(id: String!): Task!
   getUserPublicInfoById(id: ID!): Users!
   getUserPrivateInfoById(id: ID!): Users!
+  dashboard: DashboardResponse!
 }

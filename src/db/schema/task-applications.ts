@@ -19,7 +19,9 @@ export const taskApplications = pgTable(
       withTimezone: true,
     }),
     status: applicationStatusEnum('status').default('pending'),
-    appliedAt: timestamp('applied_at', { withTimezone: true }).defaultNow(),
+    appliedAt: timestamp('applied_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
     respondedAt: timestamp('responded_at', { withTimezone: true }),
   },
   (table) => ({
