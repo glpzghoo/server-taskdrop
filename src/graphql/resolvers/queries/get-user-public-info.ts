@@ -1,7 +1,7 @@
-import { desc, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '../../../db/client';
 import Catch_Error from '../../../utils/GraphqlError';
-import { taskApplications, tasks, users } from '../../../db/schema';
+import { users } from '../../../db/schema';
 
 const getUserPublicInfoById = async (_: unknown, { id }: { id: string }) => {
   try {
@@ -32,21 +32,6 @@ const getUserPublicInfoById = async (_: unknown, { id }: { id: string }) => {
         createdAt: true,
         updatedAt: true,
         lastActiveAt: true,
-      },
-      with: {
-        postedTasks: {
-          orderBy: desc(tasks.createdAt),
-        },
-        taskApplications: {
-          orderBy: desc(taskApplications.appliedAt),
-          with: {
-            task: {
-              with: {
-                poster: true,
-              },
-            },
-          },
-        },
       },
     });
 

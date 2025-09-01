@@ -6,3 +6,4 @@ export * from './get-tasks';
 export * from './get-task-by-id';
 export * from './get-user-public-info';
 export * from './dashboard';
+export * from './get-user-tasks';

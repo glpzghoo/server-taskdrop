@@ -80,3 +80,5 @@ export const proficiencyLevelEnum = pgEnum('proficiency_level', [
   'advanced',
   'expert',
 ]);
+
+export type TaskStatus = (typeof taskStatusEnum.enumValues)[number];

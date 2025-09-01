@@ -92,6 +92,7 @@ type Task {
   id: String!
   posterId: String!
   poster: Users!
+  assignee: Users
   categoryId: String!
   category: categories!
   title: String!
