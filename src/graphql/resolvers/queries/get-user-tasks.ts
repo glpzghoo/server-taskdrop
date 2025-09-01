@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { ExtractCookie } from '../../../utils/extract-cookie';
 import { verify } from 'jsonwebtoken';
 import { db } from '../../../db/client';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { Task, tasks, users } from '../../../db/schema';
 import Catch_Error from '../../../utils/GraphqlError';
 import { orderBy } from 'lodash';
@@ -30,7 +30,10 @@ const getUserTasks = async (_: unknown, {}, { req }: { req: Request }) => {
       throw new Error('Хэрэглэгчийн рол тодорхойгүй!');
 
     const userTasks = await db.query.tasks.findMany({
-      where: eq(tasks.posterId, verified.id),
+      where: or(
+        eq(tasks.posterId, verified.id),
+        eq(tasks.assignedTo, verified.id)
+      ),
       with: {
         poster: true,
         assignee: true,
