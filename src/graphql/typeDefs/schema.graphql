@@ -116,6 +116,8 @@ type Task {
   posterRating: Float
   helperFeedback: String
   posterFeedback: String
+  disputeReason1: String
+  disputeReason2: String
   createdAt: String!
   updatedAt: String!
 }
@@ -256,11 +258,11 @@ enum applicationStatusEnum {
 
 enum TaskStatus {
   open
+  assigned
   in_progress
   completed
   cancelled
   disputed
-  assigned
   overdue
 }
 
