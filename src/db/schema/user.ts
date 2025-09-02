@@ -22,7 +22,6 @@ export const users = pgTable('users', {
   bio: text('bio'),
   dateOfBirth: date('date_of_birth'),
   address: text('address'),
-  city: varchar('city', { length: 100 }),
   latitude: decimal('latitude', { precision: 10, scale: 8 }),
   longitude: decimal('longitude', { precision: 11, scale: 8 }),
   isHelper: boolean('is_helper').default(false).notNull(),
@@ -39,19 +38,25 @@ export const users = pgTable('users', {
     .notNull(),
   posterRatingCount: integer('poster_rating_count').default(0).notNull(),
   tasksCompleted: integer('tasks_completed').default(0).notNull(),
+  tasksCancelled: integer('tasks_cancelled').default(0).notNull(),
+  tasksDisputed: integer('tasks_disputed').default(0).notNull(),
   tasksPosted: integer('tasks_posted').default(0).notNull(),
   totalEarned: integer('total_earned').default(0).notNull(),
   totalSpent: integer('total_spent').default(0).notNull(),
-  emailVerified: boolean('email_verified').default(false),
-  phoneVerified: boolean('phone_verified').default(false),
-  backgroundCheckStatus: backgroundCheckStatusEnum(
-    'background_check_status'
-  ).default('pending'),
-  accountStatus: accountStatusEnum('account_status').default('active'),
+  emailVerified: boolean('email_verified').default(false).notNull(),
+  phoneVerified: boolean('phone_verified').default(false).notNull(),
+  backgroundCheckStatus: backgroundCheckStatusEnum('background_check_status')
+    .default('pending')
+    .notNull(),
+  accountStatus: accountStatusEnum('account_status')
+    .default('active')
+    .notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
   lastActiveAt: timestamp('last_active_at', {
     withTimezone: true,
-  }).defaultNow(),
-  responseTime: varchar('reponse_seconds').default('0'),
+  })
+    .defaultNow()
+    .notNull(),
+  responseTime: varchar('reponse_seconds').default('0').notNull(),
 });

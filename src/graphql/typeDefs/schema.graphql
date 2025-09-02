@@ -9,10 +9,6 @@ type Users {
   bio: String
   dateOfBirth: String
   address: String
-  city: String
-  state: String
-  country: String
-  zipCode: String
   latitude: Float
   longitude: Float
   isHelper: Boolean!
@@ -21,23 +17,25 @@ type Users {
   maxTravelDistance: Int
   preferredCategories: [String]
   postedTasks: [Task]
-  helperRating: Float
-  helperRatingCount: Int
-  posterRating: Float
-  posterRatingCount: Int
-  tasksCompleted: Int
+  helperRating: Float!
+  helperRatingCount: Int!
+  posterRating: Float!
+  posterRatingCount: Int!
+  tasksCompleted: Int!
+  tasksCancelled: String!
+  tasksDisputed: String!
   taskApplications: [taskApplications]
-  tasksPosted: Int
-  totalEarned: Float
-  totalSpent: Float
-  emailVerified: Boolean
-  phoneVerified: Boolean
-  backgroundCheckStatus: BackgroundCheckStatus
-  accountStatus: AccountStatus
+  tasksPosted: Int!
+  totalEarned: Float!
+  totalSpent: Float!
+  emailVerified: Boolean!
+  phoneVerified: Boolean!
+  backgroundCheckStatus: BackgroundCheckStatus!
+  accountStatus: AccountStatus!
   createdAt: String!
   updatedAt: String!
-  lastActiveAt: String
-  responseTime: String
+  lastActiveAt: String!
+  responseTime: String!
 }
 
 type UserSkills {

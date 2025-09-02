@@ -38,6 +38,7 @@ export const tasks = pgTable('tasks', {
   dueDate: timestamp('due_date', { withTimezone: true }),
   maxApplications: integer('max_applications').default(500).notNull(),
   autoAssign: boolean('auto_assign').default(false).notNull(),
+  disputeReason: text('dispute_reason'),
   helperRating: varchar('helper_rating'),
   posterRating: varchar('poster_rating'),
   helperFeedback: text('helper_feedback'),

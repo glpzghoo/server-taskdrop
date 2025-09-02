@@ -13,7 +13,6 @@ const getUserPublicInfoById = async (_: unknown, { id }: { id: string }) => {
         lastName: true,
         profileImageUrl: true,
         bio: true,
-        city: true,
         availableNow: true,
         isHelper: true,
         isTaskPoster: true,
