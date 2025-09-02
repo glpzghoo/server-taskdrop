@@ -92,6 +92,7 @@ export const newTaskApplication = async (
         message,
         proposedStartTime: proposed,
         appliedAt: now,
+        posterId: task.posterId,
       })
       .onConflictDoNothing({
         target: [taskApplications.helperId, taskApplications.taskId],

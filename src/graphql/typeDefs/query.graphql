@@ -8,4 +8,5 @@ type Query {
   getUserPrivateInfoById(id: ID!): Users!
   getUserTasks: [Task]!
   dashboard: DashboardResponse!
+  getApplications(taskId: String!): [taskApplications]!
 }

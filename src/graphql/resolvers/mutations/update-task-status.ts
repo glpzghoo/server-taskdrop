@@ -4,14 +4,11 @@ import jwt from 'jsonwebtoken';
 import Catch_Error from '../../../utils/GraphqlError';
 import { db } from '../../../db/client';
 import { eq } from 'drizzle-orm';
-import { taskApplications, tasks, users } from '../../../db/schema';
+import { tasks, users } from '../../../db/schema';
 
 const UpdateTaskStatusBothSides = async (
   _: unknown,
-  {
-    TaskApplicationId,
-    ratingGiven,
-  }: { TaskApplicationId: string; ratingGiven?: number },
+  { taskId, ratingGiven }: { taskId: string; ratingGiven?: number },
   { req }: { req: Request }
 ) => {
   try {
@@ -24,18 +21,7 @@ const UpdateTaskStatusBothSides = async (
       id: string;
     };
 
-    const apps = await db
-      .select()
-      .from(taskApplications)
-      .where(eq(taskApplications.id, TaskApplicationId));
-
-    if (apps.length === 0) throw new Error('Даалгаврын өргөдөл олдсонгүй!');
-    const application = apps[0];
-
-    const tasksRes = await db
-      .select()
-      .from(tasks)
-      .where(eq(tasks.id, application.taskId));
+    const tasksRes = await db.select().from(tasks).where(eq(tasks.id, taskId));
 
     if (tasksRes.length === 0) throw new Error('Даалгавар олдсонгүй!');
     const task = tasksRes[0];
@@ -43,7 +29,7 @@ const UpdateTaskStatusBothSides = async (
     const helpers = await db
       .select()
       .from(users)
-      .where(eq(users.id, application.helperId));
+      .where(eq(users.id, task.assignedTo!));
     if (helpers.length === 0) throw new Error('Туслагч олдсонгүй!');
     const helper = helpers[0];
 
@@ -54,64 +40,14 @@ const UpdateTaskStatusBothSides = async (
     if (posters.length === 0) throw new Error('Даалгавар тавигч олдсонгүй!');
     const poster = posters[0];
 
-    if (task.posterId === application.helperId) {
-      throw new Error('Та өөрийн даалгавартаа өргөдөл илгээж чадахгүй!');
-    }
     if (task.status === 'completed') {
       throw new Error('Энэ даалгавар аль хэдийн дууссан байна!');
     }
     if (task.status === 'cancelled') {
       throw new Error('Энэ даалгавар цуцлагдсан байна!');
     }
-    if (task.dueDate && task.dueDate < new Date() && !task.assignedTo) {
-      await Promise.all([
-        db
-          .update(tasks)
-          .set({ status: 'overdue' })
-          .where(eq(tasks.id, task.id)),
-        db
-          .update(taskApplications)
-          .set({ status: 'overdue' })
-          .where(eq(taskApplications.id, TaskApplicationId)),
-      ]);
-
-      throw new Error('Энэ даалгавар хугацаа хэтэрсэн байна!');
-    }
 
     await db.transaction(async (tx) => {
-      if (verified.id === poster.id && task.status === 'open') {
-        if (task.assignedTo) {
-          throw new Error('Энэ даалгавар аль хэдийн хуваарилагдсан байна!');
-        }
-        if (application.status !== 'pending') {
-          throw new Error(
-            'Энэ өргөдлийг баталгаажуулах боломжгүй төлөв байна!'
-          );
-        }
-
-        const now = new Date();
-        const diffMs = now.getTime() - application.appliedAt.getTime();
-        const respondSeconds = Math.floor(diffMs / 1000);
-
-        await tx.update(users).set({ responseTime: respondSeconds.toString() });
-
-        await tx
-          .update(taskApplications)
-          .set({ status: 'accepted', respondedAt: now })
-          .where(eq(taskApplications.id, TaskApplicationId));
-        await tx
-          .update(tasks)
-          .set({
-            status: 'assigned',
-            assignedTo: application.helperId,
-            startedAt: now,
-            helperRating: helper.helperRating?.toString(),
-            posterRating: poster.posterRating?.toString(),
-          })
-          .where(eq(tasks.id, task.id));
-        return;
-      }
-
       if (verified.id === helper.id && task.status === 'assigned') {
         await tx
           .update(tasks)

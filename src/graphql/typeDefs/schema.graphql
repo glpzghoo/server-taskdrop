@@ -130,6 +130,7 @@ type taskApplications {
   taskId: String!
   task: Task!
   helperId: String!
+  posterId: String!
   helper: Users!
   message: String!
   proposedStartTime: String!
@@ -306,7 +307,7 @@ enum AccountStatus {
 type DashboardResponse {
   taskCompleted: Int!
   totalEarned: Int!
-  avgRating: Int!
+  avgRating: String!
   responseTime: Int!
   assignedTasks: [Task]!
   isAvailable: Boolean!

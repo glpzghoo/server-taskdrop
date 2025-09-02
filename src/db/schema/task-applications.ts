@@ -23,6 +23,9 @@ export const taskApplications = pgTable(
       .defaultNow()
       .notNull(),
     respondedAt: timestamp('responded_at', { withTimezone: true }),
+    posterId: uuid('poster_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
   },
   (table) => ({
     uniqueTaskHelper: unique().on(table.taskId, table.helperId),

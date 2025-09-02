@@ -7,3 +7,4 @@ export * from './get-task-by-id';
 export * from './get-user-public-info';
 export * from './dashboard';
 export * from './get-user-tasks';
+export * from './get-applications';

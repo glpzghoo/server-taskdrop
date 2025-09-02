@@ -29,8 +29,6 @@ type Mutation {
     message: String!
     proposedStartTime: String!
   ): taskApplications!
-  UpdateTaskStatusBothSides(
-    TaskApplicationId: String!
-    ratingGiven: Float
-  ): Boolean!
+  AcceptOffer(TaskApplicationId: String!): Boolean!
+  UpdateTaskStatusBothSides(taskId: String!, ratingGiven: Float): Boolean!
 }
