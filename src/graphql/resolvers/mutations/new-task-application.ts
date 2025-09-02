@@ -2,7 +2,7 @@ import { Request } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { z } from 'zod';
 import { db } from '../../../db/client';
-import { taskApplications, tasks } from '../../../db/schema';
+import { taskApplications, tasks, users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 import Catch_Error from '../../../utils/GraphqlError';
 import { ExtractCookie } from '../../../utils/extract-cookie';
@@ -79,11 +79,12 @@ export const newTaskApplication = async (
       .select()
       .from(taskApplications)
       .where(eq(taskApplications.taskId, taskId))
-      .limit(10);
+      .limit(task.maxApplications);
 
-    if (AllApplications.length >= (task.maxApplications ?? 0)) {
+    if (AllApplications.length >= task.maxApplications) {
       throw new Error('Хүсэлтийн хязгаар хүрсэн байна.');
     }
+
     const inserted = await db
       .insert(taskApplications)
       .values({
@@ -103,7 +104,41 @@ export const newTaskApplication = async (
       throw new Error('Та энэ даалгаварт аль хэдийн хүсэлт илгээсэн байна.');
     }
 
-    return inserted[0];
+    const application = inserted[0];
+
+    if (task.autoAssign) {
+      const helpers = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, application.helperId));
+      if (helpers.length === 0) throw new Error('Туслагч олдсонгүй!');
+      const helper = helpers[0];
+
+      const posters = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, task.posterId));
+      if (posters.length === 0) throw new Error('Даалгавар тавигч олдсонгүй!');
+      const poster = posters[0];
+      await db.transaction(async (tx) => {
+        await tx
+          .update(taskApplications)
+          .set({ status: 'accepted', respondedAt: now })
+          .where(eq(taskApplications.id, application.id));
+        await tx
+          .update(tasks)
+          .set({
+            status: 'assigned',
+            assignedTo: application.helperId,
+            startedAt: now,
+            helperRating: helper.helperRating?.toString(),
+            posterRating: poster.posterRating?.toString(),
+          })
+          .where(eq(tasks.id, task.id));
+      });
+    }
+
+    return application;
   } catch (err) {
     console.error(err);
     return Catch_Error(err);

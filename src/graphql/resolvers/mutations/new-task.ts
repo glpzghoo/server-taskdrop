@@ -20,6 +20,9 @@ const NewTask = async (
     isUrgent,
     requirements,
     urgencyFee,
+    dueDate,
+    maxApplications,
+    autoAssign = false,
   }: {
     title: string;
     description: string;
@@ -29,8 +32,11 @@ const NewTask = async (
     location: string;
     isRemote: boolean;
     isUrgent: boolean;
-    requirements: string;
     urgencyFee: number;
+    requirements?: string;
+    dueDate?: string;
+    maxApplications?: number;
+    autoAssign?: boolean;
   },
   { req }: { req: Request }
 ) => {
@@ -88,6 +94,9 @@ const NewTask = async (
           ? { urgencyFee: urgencyFee }
           : {}),
         posterRating: user.posterRating?.toString(),
+        ...(dueDate ? { dueDate: new Date(Number(dueDate)) } : {}),
+        ...(maxApplications !== undefined ? { maxApplications } : {}),
+        autoAssign,
       })
       .returning();
     if (newTask.length === 0) {

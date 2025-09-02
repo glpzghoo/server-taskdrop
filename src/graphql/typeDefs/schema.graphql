@@ -15,8 +15,8 @@ type Users {
   zipCode: String
   latitude: Float
   longitude: Float
-  isHelper: Boolean
-  isTaskPoster: Boolean
+  isHelper: Boolean!
+  isTaskPoster: Boolean!
   availableNow: Boolean!
   maxTravelDistance: Int
   preferredCategories: [String]
@@ -100,9 +100,6 @@ type Task {
   requirements: String
   isRemote: Boolean!
   address: String
-  city: String
-  state: String
-  zipCode: String
   latitude: Float
   longitude: Float
   estimatedDuration: Int!

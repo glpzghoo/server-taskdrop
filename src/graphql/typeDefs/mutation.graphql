@@ -22,6 +22,9 @@ type Mutation {
     duration: Int!
     estimatedCost: Int!
     urgencyFee: Int
+    dueDate: String
+    maxApplications: Int
+    autoAssign: Boolean
   ): Task!
   NewCategory(name: String!): categories!
   newTaskApplication(
