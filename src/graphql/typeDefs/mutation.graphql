@@ -34,4 +34,5 @@ type Mutation {
   ): taskApplications!
   AcceptOffer(TaskApplicationId: String!): Boolean!
   UpdateTaskStatusBothSides(taskId: String!, ratingGiven: Float): Boolean!
+  newDispute(taskId: String!, reason: String!): Boolean!
 }

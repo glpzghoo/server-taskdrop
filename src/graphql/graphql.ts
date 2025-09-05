@@ -24,7 +24,7 @@ export const initGraphQL = async () => {
       origin:
         process.env.PRODUCTION === 'production'
           ? 'https://task-drop.glpzghoo.space'
-          : 'http://localhost:3000',
+          : 'http://localhost:4321',
       credentials: true,
     }),
     express.json(),

@@ -40,6 +40,8 @@ export const tasks = pgTable('tasks', {
   autoAssign: boolean('auto_assign').default(false).notNull(),
   disputeReason1: text('dispute_reason1'),
   disputeReason2: text('dispute_reason2'),
+  posterDisputed: boolean('poster_disputed').default(false).notNull(),
+  helperDisputed: boolean('helper_disputed').default(false).notNull(),
   helperRating: varchar('helper_rating'),
   posterRating: varchar('poster_rating'),
   helperFeedback: text('helper_feedback'),
