@@ -58,15 +58,7 @@ const newDispute = async (
       throw new Error('Хугацаа хэтэрсэн даалгаварт маргаан үүсгэх боломжгүй.');
     }
     if (task.status === 'completed') {
-      if (!task.completedAt) {
-        throw new Error('Дууссан огноо тодорхойгүй байна.');
-      }
-      const cutoff = task.completedAt.getTime() + 24 * 60 * 60 * 1000;
-      if (Date.now() > cutoff) {
-        throw new Error(
-          'Дууссанаас хойш 24 цаг өнгөрсөн тул маргаан үүсгэх боломжгүй.'
-        );
-      }
+      throw new Error('Дууссан даалгаварт маргаан үүсгэх боломжгүй!');
     }
 
     if (whoIsDisputing === 'poster' && task.posterDisputed) {
