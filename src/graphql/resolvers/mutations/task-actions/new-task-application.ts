@@ -1,11 +1,11 @@
 import { Request } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { z } from 'zod';
-import { db } from '../../../db/client';
-import { taskApplications, tasks, users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
-import Catch_Error from '../../../utils/GraphqlError';
-import { ExtractCookie } from '../../../utils/extract-cookie';
+import { ExtractCookie } from '../../../../utils/extract-cookie';
+import { db } from '../../../../db/client';
+import { taskApplications, tasks, users } from '../../../../db/schema';
+import Catch_Error from '../../../../utils/GraphqlError';
 
 const InputSchema = z.object({
   taskId: z.string().min(1, 'Даалгаврын ID дутуу байна'),
@@ -112,14 +112,12 @@ export const newTaskApplication = async (
         .from(users)
         .where(eq(users.id, application.helperId));
       if (helpers.length === 0) throw new Error('Туслагч олдсонгүй!');
-      const helper = helpers[0];
 
       const posters = await db
         .select()
         .from(users)
         .where(eq(users.id, task.posterId));
       if (posters.length === 0) throw new Error('Даалгавар тавигч олдсонгүй!');
-      const poster = posters[0];
       await db.transaction(async (tx) => {
         await tx
           .update(taskApplications)
@@ -131,8 +129,6 @@ export const newTaskApplication = async (
             status: 'assigned',
             assignedTo: application.helperId,
             startedAt: now,
-            helperRating: helper.helperRating?.toString(),
-            posterRating: poster.posterRating?.toString(),
           })
           .where(eq(tasks.id, task.id));
       });

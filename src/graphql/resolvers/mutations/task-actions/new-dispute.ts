@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import Catch_Error from '../../../utils/GraphqlError';
-import { ExtractCookie } from '../../../utils/extract-cookie';
+import Catch_Error from '../../../../utils/GraphqlError';
+import { ExtractCookie } from '../../../../utils/extract-cookie';
 import { verify } from 'jsonwebtoken';
-import { db } from '../../../db/client';
+import { db } from '../../../../db/client';
 import { eq } from 'drizzle-orm';
-import { tasks, users } from '../../../db/schema';
+import { tasks, users } from '../../../../db/schema';
 
 const newDispute = async (
   _: unknown,
@@ -49,9 +49,24 @@ const newDispute = async (
         : task.assignedTo === user.id
           ? 'helper'
           : 'no';
+    if (whoIsDisputing === 'no') throw new Error('Танд эрх алга');
 
-    if (whoIsDisputing === 'no') {
-      throw new Error('Танд эрх алга');
+    if (task.status === 'cancelled') {
+      throw new Error('Цуцлагдсан даалгаварт маргаан үүсгэх боломжгүй.');
+    }
+    if (task.status === 'overdue') {
+      throw new Error('Хугацаа хэтэрсэн даалгаварт маргаан үүсгэх боломжгүй.');
+    }
+    if (task.status === 'completed') {
+      if (!task.completedAt) {
+        throw new Error('Дууссан огноо тодорхойгүй байна.');
+      }
+      const cutoff = task.completedAt.getTime() + 24 * 60 * 60 * 1000;
+      if (Date.now() > cutoff) {
+        throw new Error(
+          'Дууссанаас хойш 24 цаг өнгөрсөн тул маргаан үүсгэх боломжгүй.'
+        );
+      }
     }
 
     if (whoIsDisputing === 'poster' && task.posterDisputed) {
@@ -61,15 +76,6 @@ const newDispute = async (
       throw new Error('Та өмнө нь маргаан үүсгэсэн байна.');
     }
 
-    if (!['in_progress', 'completed'].includes(task.status)) {
-      throw new Error('Даалгавар эхлээгүй байхад маргаан үүсгэх боломжгүй!.');
-    }
-    if (task.completedAt) {
-      const cutoff = task.completedAt.getTime() + 24 * 60 * 60 * 1000;
-      if (Date.now() > cutoff) {
-        throw new Error('Дуусаад удсан даалгаварт маргаан үүсгэх боломжгүй.');
-      }
-    }
     if (whoIsDisputing === 'helper') {
       const updated = await db
         .update(tasks)
@@ -80,7 +86,6 @@ const newDispute = async (
         })
         .where(eq(tasks.id, taskId))
         .returning({ id: tasks.id });
-
       if (updated.length === 0) throw new Error('Алдаа гарлаа');
     } else {
       const updated = await db
@@ -92,7 +97,6 @@ const newDispute = async (
         })
         .where(eq(tasks.id, taskId))
         .returning({ id: tasks.id });
-
       if (updated.length === 0) throw new Error('Алдаа гарлаа');
     }
 

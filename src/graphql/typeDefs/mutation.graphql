@@ -33,6 +33,20 @@ type Mutation {
     proposedStartTime: String!
   ): taskApplications!
   AcceptOffer(TaskApplicationId: String!): Boolean!
-  UpdateTaskStatusBothSides(taskId: String!, ratingGiven: Float): Boolean!
+  helperStartTask(taskId: String!, ratingGiven: Float): Boolean!
   newDispute(taskId: String!, reason: String!): Boolean!
+  helperMarkDone(
+    taskId: String!
+    ratingGiven: Float
+    feedback: String
+  ): Boolean!
+  posterConfirmAndRate(
+    taskId: String!
+    ratingGiven: Float
+    feedback: String
+  ): Boolean!
+  finalizeIfSettled(taskId: String!): Boolean!
+  solveDispute(taskId: String!): Boolean!
+  changeToOverdue(taskId: String!): Boolean!
+  cancelTask(taskId: String!): Boolean!
 }

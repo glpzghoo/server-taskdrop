@@ -118,6 +118,8 @@ type Task {
   posterFeedback: String
   disputeReason1: String
   disputeReason2: String
+  markCompleted1: Boolean!
+  markCompleted2: Boolean!
   posterDisputed: Boolean!
   helperDisputed: Boolean!
   createdAt: String!

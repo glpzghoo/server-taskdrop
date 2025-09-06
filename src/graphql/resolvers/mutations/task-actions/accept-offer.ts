@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import { ExtractCookie } from '../../../utils/extract-cookie';
 import jwt from 'jsonwebtoken';
-import Catch_Error from '../../../utils/GraphqlError';
-import { db } from '../../../db/client';
 import { eq } from 'drizzle-orm';
-import { taskApplications, tasks, users } from '../../../db/schema';
+import { db } from '../../../../db/client';
+import { taskApplications, tasks, users } from '../../../../db/schema';
+import Catch_Error from '../../../../utils/GraphqlError';
+import { ExtractCookie } from '../../../../utils/extract-cookie';
 
 const AcceptOffer = async (
   _: unknown,

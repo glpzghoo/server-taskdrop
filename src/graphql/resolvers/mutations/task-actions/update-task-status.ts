@@ -1,12 +1,12 @@
 import { Request } from 'express';
-import { ExtractCookie } from '../../../utils/extract-cookie';
+import { ExtractCookie } from '../../../../utils/extract-cookie';
 import jwt from 'jsonwebtoken';
-import Catch_Error from '../../../utils/GraphqlError';
-import { db } from '../../../db/client';
+import Catch_Error from '../../../../utils/GraphqlError';
+import { db } from '../../../../db/client';
 import { eq } from 'drizzle-orm';
-import { tasks, users } from '../../../db/schema';
+import { tasks, users } from '../../../../db/schema';
 
-const UpdateTaskStatusBothSides = async (
+const UpdateTaskStatus = async (
   _: unknown,
   { taskId, ratingGiven }: { taskId: string; ratingGiven?: number },
   { req }: { req: Request }
@@ -104,4 +104,4 @@ const UpdateTaskStatusBothSides = async (
   }
 };
 
-export { UpdateTaskStatusBothSides };
+export { UpdateTaskStatus };
